@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Lines 9x9</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container">
+    <header class="header">
+      <div class="next-preview">
+        <span class="label">Next</span>
+        <div class="preview-balls">
+          <div class="preview-ball" id="next-0"></div>
+          <div class="preview-ball" id="next-1"></div>
+          <div class="preview-ball" id="next-2"></div>
+        </div>
+      </div>
+      <div class="combo-display" id="combo-display">
+        <span class="combo-value" id="combo-text"></span>
+      </div>
+      <div class="score-board">
+        <span class="label">Score</span>
+        <span class="score-value" id="score">0</span>
+      </div>
+    </header>
+    <div class="grid" id="grid"></div>
+
+    <!-- Game Over overlay -->
+    <div class="game-over-overlay" id="game-over" style="display:none;">
+      <div class="game-over-card">
+        <h2>Game Over</h2>
+        <p>Final Score: <span id="final-score">0</span></p>
+        <button class="restart-btn" id="restart-btn">Play Again</button>
+      </div>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>

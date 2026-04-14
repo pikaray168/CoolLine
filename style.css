@@ -1,0 +1,248 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 12px 24px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.next-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.preview-balls {
+  display: flex;
+  gap: 8px;
+}
+
+.preview-ball {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+/* Glossy highlight on preview balls */
+.preview-ball.ball::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  width: 10px;
+  height: 7px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.55) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* ── Combo display ── */
+.combo-display {
+  min-width: 80px;
+  text-align: center;
+}
+
+.combo-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #feca57;
+  text-shadow: 0 0 10px rgba(254, 202, 87, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.combo-value.visible {
+  opacity: 1;
+}
+
+.score-board {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.score-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  min-width: 60px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 8px;
+}
+
+.cell {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+
+.cell:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.cell.selected {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.15), inset 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+/* ── Ball ── */
+.ball {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+
+/* Glossy highlight on ball */
+.ball::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  width: 14px;
+  height: 10px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.55) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cell.selected .ball {
+  transform: scale(1.12);
+}
+
+/* ── Ball Colors (muted, high-contrast palette) ── */
+/* 0: Red */
+.ball.color-0 { background: radial-gradient(circle at 35% 35%, #e07070, #a33); box-shadow: 0 4px 12px rgba(170,51,51,0.45); }
+/* 1: Blue */
+.ball.color-1 { background: radial-gradient(circle at 35% 35%, #5b9bd5, #2b6cb0); box-shadow: 0 4px 12px rgba(43,108,176,0.45); }
+/* 2: Green */
+.ball.color-2 { background: radial-gradient(circle at 35% 35%, #6abf69, #3a8c3a); box-shadow: 0 4px 12px rgba(58,140,58,0.45); }
+/* 3: Yellow */
+.ball.color-3 { background: radial-gradient(circle at 35% 35%, #f0d060, #c8a830); box-shadow: 0 4px 12px rgba(200,168,48,0.45); }
+/* 4: Purple */
+.ball.color-4 { background: radial-gradient(circle at 35% 35%, #9a8ad4, #6b52ae); box-shadow: 0 4px 12px rgba(107,82,174,0.45); }
+/* 5: Orange */
+.ball.color-5 { background: radial-gradient(circle at 35% 35%, #e8a055, #c07028); box-shadow: 0 4px 12px rgba(192,112,40,0.45); }
+/* 6: White */
+.ball.color-6 { background: radial-gradient(circle at 35% 35%, #f0f0f0, #b8b8b8); box-shadow: 0 4px 12px rgba(180,180,180,0.45); }
+
+.cell.selected .ball.color-0 { box-shadow: 0 0 18px rgba(170,51,51,0.65); }
+.cell.selected .ball.color-1 { box-shadow: 0 0 18px rgba(43,108,176,0.65); }
+.cell.selected .ball.color-2 { box-shadow: 0 0 18px rgba(58,140,58,0.65); }
+.cell.selected .ball.color-3 { box-shadow: 0 0 18px rgba(200,168,48,0.65); }
+.cell.selected .ball.color-4 { box-shadow: 0 0 18px rgba(107,82,174,0.65); }
+.cell.selected .ball.color-5 { box-shadow: 0 0 18px rgba(192,112,40,0.65); }
+.cell.selected .ball.color-6 { box-shadow: 0 0 18px rgba(180,180,180,0.65); }
+
+/* ── Game Over overlay ── */
+.game-container {
+  position: relative;
+}
+
+.game-over-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.game-over-card {
+  text-align: center;
+  color: #fff;
+}
+
+.game-over-card h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.game-over-card p {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 28px;
+}
+
+.game-over-card p span {
+  color: #feca57;
+  font-weight: 700;
+}
+
+.restart-btn {
+  padding: 12px 36px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.restart-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(108, 92, 231, 0.5);
+}
