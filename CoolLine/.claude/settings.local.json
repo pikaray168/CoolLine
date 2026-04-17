@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv CoolLine/game.js .)",
+      "Bash(mv CoolLine/index.html .)",
+      "Bash(mv CoolLine/style.css .)",
+      "Bash(rmdir CoolLine)"
+    ]
+  }
+}
