@@ -11,12 +11,14 @@ body {
   align-items: center;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  padding: 8px;
 }
 
 .game-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-width: 100%;
 }
 
 /* ── Header ── */
@@ -118,8 +120,8 @@ body {
 }
 
 .cell {
-  width: 56px;
-  height: 56px;
+  width: clamp(32px, 9vw, 56px);
+  height: clamp(32px, 9vw, 56px);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.045);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -143,8 +145,8 @@ body {
 
 /* ── Ball ── */
 .ball {
-  width: 38px;
-  height: 38px;
+  width: clamp(22px, 6vw, 38px);
+  height: clamp(22px, 6vw, 38px);
   border-radius: 50%;
   transition: transform 0.15s, box-shadow 0.15s;
   position: relative;
@@ -245,4 +247,58 @@ body {
 .restart-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 20px rgba(108, 92, 231, 0.5);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .header {
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
+
+  .label {
+    font-size: 11px;
+  }
+
+  .score-value {
+    font-size: 22px;
+    min-width: 40px;
+  }
+
+  .preview-ball {
+    width: 22px;
+    height: 22px;
+  }
+
+  .grid {
+    gap: 2px;
+    padding: 5px;
+    border-radius: 12px;
+  }
+
+  .cell {
+    border-radius: 7px;
+  }
+
+  .ball::after {
+    top: 4px;
+    left: 6px;
+    width: 10px;
+    height: 7px;
+  }
+
+  .preview-ball.ball::after {
+    top: 3px;
+    left: 5px;
+    width: 8px;
+    height: 5px;
+  }
+
+  .game-over-card h2 {
+    font-size: 28px;
+  }
+
+  .game-over-card p {
+    font-size: 16px;
+  }
 }
